@@ -1,5 +1,7 @@
 import nltk
 from natasha import Doc, MorphVocab, NewsEmbedding, NewsMorphTagger, Segmenter
+from numpy import rec
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 # natasha utils
 segmenter = Segmenter()
@@ -47,3 +49,14 @@ def preprocessing(
         sent = " ".join([w.lemma for w in doc.tokens])
 
     return sent
+
+
+def calculate_metrics(y_true, y_pred):
+    # calculate metrcis
+    acc = round(accuracy_score(y_true, y_pred), 3)
+    pr = round(precision_score(y_true, y_pred, average="macro"), 3)
+    rc = round(recall_score(y_true, y_pred, average="macro"), 3)
+    # display scores
+    print(f"Accuracy: {acc}, Precision: {pr}, Recall: {rc}")
+
+    return acc, pr, rc
