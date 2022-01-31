@@ -132,3 +132,4 @@ dmypy.json
 data/
 docs/
 .vscode/
+lightning_logs/
