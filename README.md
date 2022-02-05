@@ -7,3 +7,12 @@
 1. [Competition](https://boosters.pro/championship/HeadHunter/overview)
 2. [Trello](https://trello.com/b/J68m9WBK/hhcompete)
 
+## TODO
+- [x] EDA
+- [x] Baseline
+- [x] LSTM Network
+- [x] RuBert
+- [ ] LSTM with Attention
+- [x] Multilable
+- [ ] Augmentation
+- [ ] Target Insight
