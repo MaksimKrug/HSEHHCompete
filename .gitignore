@@ -133,3 +133,6 @@ data/
 docs/
 .vscode/
 lightning_logs/
+*.ckpt
+links.txt
+logs/
