@@ -12,7 +12,12 @@
 - [x] Baseline
 - [x] LSTM Network
 - [x] RuBert
-- [ ] LSTM with Attention
+- [x] LSTM with Attention
 - [x] Multilable
-- [ ] Augmentation
-- [ ] Target Insight
+- [x] Augmentation
+- [x] Target Insight
+- [x] Lstm with Pooling
+- [x] Pseudo labels for test
+- [x] Final LSTM
+- [ ] Clear github
+- [ ] Create docker solution
