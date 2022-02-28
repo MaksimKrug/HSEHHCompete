@@ -25,7 +25,7 @@ class CustomDataset(Dataset):
         self.train_mode = train_mode
         self.sent_size = sent_size
         self.model_type = model_type
-        self.navec = Navec.load("data/navec_hudlit_v1_12B_500K_300d_100q.tar")
+        self.navec = Navec.load("../data/navec_hudlit_v1_12B_500K_300d_100q.tar")
 
         # init features
         self.data_path = data_path
@@ -163,7 +163,7 @@ class Model(pl.LightningModule,):
 
         # metrics
         self.metric_accuracy = torchmetrics.Accuracy()
-        self.metric_f1 = torchmetrics.F1(num_classes=9, average="samples")
+        self.metric_f1 = torchmetrics.F1(num_classes=8, average="samples")
 
         # RuBert
         self.bert = init_RUBert(self.is_train)
@@ -176,7 +176,7 @@ class Model(pl.LightningModule,):
         self.linear1_negative = nn.Linear(768, self.linear1_token_size)
         self.linear_tokens = nn.Linear(2 * self.linear1_token_size, self.linear2_size)
 
-        self.linear_out = nn.Linear(2 * self.linear2_size, 9)
+        self.linear_out = nn.Linear(2 * self.linear2_size, 8)
 
         # utils
         self.relu = nn.ReLU(inplace=True)
@@ -241,7 +241,7 @@ class Model(pl.LightningModule,):
         out = self(positive, negative, metadata)
         loss = torch.nn.BCELoss(reduction="none")(out, target)
         weights = torch.tensor(
-            [0.05, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.05], device=self.device
+            [1,1,1,1,1,1,1,1], device=self.device
         )
         loss = (loss * weights).mean()
         accuracy = self.metric_accuracy(out, target.int())
@@ -259,7 +259,7 @@ class Model(pl.LightningModule,):
         out = self(positive, negative, metadata)
         loss = torch.nn.BCELoss(reduction="none")(out, target)
         weights = torch.tensor(
-            [0.05, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.05], device=self.device
+            [1,1,1,1,1,1,1,1], device=self.device
         )
         loss = (loss * weights).mean()
         accuracy = self.metric_accuracy(out, target.int())
@@ -317,7 +317,7 @@ class LSTMModel(pl.LightningModule,):
 
         # metrics
         self.metric_accuracy = torchmetrics.Accuracy()
-        self.metric_f1 = torchmetrics.F1(num_classes=9, average="samples")
+        self.metric_f1 = torchmetrics.F1(num_classes=8, average="samples")
 
         # lstm layers
         self.lstm_layer_positive = nn.LSTM(
@@ -343,7 +343,7 @@ class LSTMModel(pl.LightningModule,):
         self.linear1_metadata = nn.Linear(13, self.linear1_meta)
         self.linear2_metadata = nn.Linear(self.linear1_meta, self.linear2_size)
         self.linear2_tokens = nn.Linear(1320 * 2, self.linear2_size)
-        self.linear_out = nn.Linear(self.linear2_size * 2, 9)
+        self.linear_out = nn.Linear(self.linear2_size * 2, 8)
 
         # utils
         self.relu = nn.ReLU6(inplace=True)
@@ -423,7 +423,7 @@ class LSTMModel(pl.LightningModule,):
         out = self(positive, negative, metadata)
         loss = nn.BCELoss(reduction="none")(out, target)
         weights = torch.tensor(
-            [0.05, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.05], device=self.device
+            [1,1,1,1,1,1,1,1], device=self.device
         )
         loss = (loss * weights).mean()
         accuracy = self.metric_accuracy(out, target.int())
@@ -441,7 +441,7 @@ class LSTMModel(pl.LightningModule,):
         out = self(positive, negative, metadata)
         loss = nn.BCELoss(reduction="none")(out, target)
         weights = torch.tensor(
-            [0.05, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.05], device=self.device
+            [1,1,1,1,1,1,1,1], device=self.device
         )
         loss = (loss * weights).mean()
         accuracy = self.metric_accuracy(out, target.int())
